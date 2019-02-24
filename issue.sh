@@ -9,7 +9,7 @@ if [ "${HOST}" = "" ]; then
   exit 1
 fi
 
-CMD="/root/.acme.sh/acme.sh --home ${HOME} --issue -w ${HOME}/${HOST}/www/ -d ${HOST}"
+CMD="/root/.acme.sh/acme.sh --home ${HOME} --issue -w ${HOME} -d ${HOST}"
 
 while [ "$1" != "" ]; do
   CMD="${CMD} -d $1"
@@ -17,7 +17,6 @@ while [ "$1" != "" ]; do
 done
 
 mkdir -p ${HOME}/${HOST}/nginx
-mkdir -p ${HOME}/${HOST}/www
 ${CMD}
 /root/.acme.sh/acme.sh --home ${HOME} --install-cert -d ${HOST} \
   --fullchain-file ${HOME}/${HOST}/nginx/cert.pem \
