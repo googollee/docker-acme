@@ -1,5 +1,6 @@
 #!/bin/sh
 
+HOME="/var/cert"
 HOST=$1
 shift
 
@@ -8,15 +9,16 @@ if [ "${HOST}" = "" ]; then
   exit 1
 fi
 
-CMD="/root/.acme.sh/acme.sh --home /var/www --issue --standalone -d ${HOST}"
+CMD="/root/.acme.sh/acme.sh --home ${HOME} --issue -w ${HOME}/${HOST}/www/ --standalone -d ${HOST}"
 
 while [ "$1" != "" ]; do
   CMD="${CMD} -d $1"
   shift
 done
 
+mkdir -p ${HOME}/${HOST}/nginx
+mkdir -p ${HOME}/${HOST}/www
 ${CMD}
-mkdir /var/www/${HOST}/nginx
-/root/.acme.sh/acme.sh --home /var/www --install-cert -d ${HOST} \
-  --fullchain-file /var/www/${HOST}/nginx/cert.pem \
-  --key-file       /var/www/${HOST}/nginx/key.pem
+/root/.acme.sh/acme.sh --home ${HOME} --install-cert -d ${HOST} \
+  --fullchain-file ${HOME}/${HOST}/nginx/cert.pem \
+  --key-file       ${HOME}/${HOST}/nginx/key.pem

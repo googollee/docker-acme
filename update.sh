@@ -1,5 +1,6 @@
 #!/bin/sh
 
+HOME="/var/cert"
 HOST=$1
 
 if [ "${HOST}" = "" ]; then
@@ -7,7 +8,8 @@ if [ "${HOST}" = "" ]; then
   exit 1
 fi
 
-/root/.acme.sh/acme.sh --home /var/www --renew -d ${HOST}
-/root/.acme.sh/acme.sh --home /var/www --install-cert -d ${HOST} \
-  --fullchain-file /var/www/${HOST}/nginx.cert.pem \
-  --key-file       /var/www/${HOST}/nginx.key.pem
+mkdir -p ${HOME}/${HOST}/nginx
+/root/.acme.sh/acme.sh --home ${HOME} --renew -d ${HOST}
+/root/.acme.sh/acme.sh --home ${HOME} --install-cert -d ${HOST} \
+  --fullchain-file ${HOME}/${HOST}/nginx/cert.pem \
+  --key-file       ${HOME}/${HOST}/nginx/key.pem
