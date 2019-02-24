@@ -11,7 +11,7 @@ fi
 CMD="/root/.acme.sh/acme.sh --home /var/www --issue --standalone -d ${HOST}"
 
 while [ "$1" != "" ]; do
-  CMD+=" -d $1"
+  CMD="${CMD} -d $1"
   shift
 done
 
