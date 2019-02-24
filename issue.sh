@@ -16,6 +16,7 @@ while [ "$1" != "" ]; do
 done
 
 ${CMD}
+mkdir /var/www/${HOST}/nginx
 /root/.acme.sh/acme.sh --home /var/www --install-cert -d ${HOST} \
-  --fullchain-file /var/www/${HOST}/nginx.cert.pem \
-  --key-file       /var/www/${HOST}/nginx.key.pem
+  --fullchain-file /var/www/${HOST}/nginx/cert.pem \
+  --key-file       /var/www/${HOST}/nginx/key.pem
