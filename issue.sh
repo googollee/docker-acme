@@ -8,7 +8,7 @@ if [ "${HOST}" = "" ]; then
   exit 1
 fi
 
-CMD="/root/.acme.sh/acme.sh --home /var/www --issue --alpn -d ${HOST}"
+CMD="/root/.acme.sh/acme.sh --home /var/www --issue --standalone -d ${HOST}"
 
 while [ "$1" != "" ]; do
   CMD="${CMD} -d $1"
