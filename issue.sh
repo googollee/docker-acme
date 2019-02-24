@@ -8,14 +8,14 @@ if [ "${HOST}" = "" ]; then
   exit 1
 fi
 
-CMD="/root/.acme.sh/acme.sh --home /var/www --issue --standalone -d ${HOST}"
+CMD="/root/.acme.sh/acme.sh --home /var/www --issue --alpn -d ${HOST}"
 
 while [ "$1" != "" ]; do
   CMD="${CMD} -d $1"
   shift
 done
 
-`${CMD}`
+${CMD}
 /root/.acme.sh/acme.sh --home /var/www --install-cert -d ${HOST} \
   --fullchain-file /var/www/${HOST}/nginx.cert.pem \
   --key-file       /var/www/${HOST}/nginx.key.pem
